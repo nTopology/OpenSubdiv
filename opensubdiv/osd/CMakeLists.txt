@@ -58,7 +58,7 @@ list(APPEND KERNEL_FILES
     patchBasisCommonEval.h
 )
 
-set(DOXY_HEADER_FILES ${PUBLIC_HEADER_FILES})
+#set(DOXY_HEADER_FILES ${PUBLIC_HEADER_FILES})
 
 #-------------------------------------------------------------------------------
 set(OPENMP_PUBLIC_HEADERS
@@ -362,9 +362,9 @@ list(APPEND DOXY_HEADER_FILES ${CUDA_PUBLIC_HEADERS})
 
 #-------------------------------------------------------------------------------
 
-_stringify("${KERNEL_FILES}" INC_FILES)
+#_stringify("${KERNEL_FILES}" INC_FILES)
 
-include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+#include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
 #-------------------------------------------------------------------------------
 source_group("Kernels" FILES ${KERNEL_FILES})
@@ -379,10 +379,30 @@ add_library(osd_cpu_obj
         ${PUBLIC_HEADER_FILES}
 )
 
-set_target_properties(osd_cpu_obj
-    PROPERTIES
-        FOLDER "opensubdiv"
+target_compile_definitions(
+    osd_cpu_obj PRIVATE
+    ${OSD_COMPILER_DEFINITIONS}
+    ${PLATFORM_COMPILE_FLAGS}
 )
+
+if(OPENMP_FOUND)
+    target_compile_definitions(
+        osd_cpu_obj PRIVATE
+        OPENSUBDIV_HAS_OPENMP
+        ${OpenMP_CXX_FLAGS}
+    )
+endif()
+
+target_compile_options(
+    osd_cpu_obj
+    PRIVATE
+    ${OSD_COMPILER_OPTIONS}
+)
+
+#set_target_properties(osd_cpu_obj
+#    PROPERTIES
+#        FOLDER "opensubdiv"
+#)
 
 if( GPU_SOURCE_FILES ) 
     add_library(osd_gpu_obj
@@ -397,19 +417,19 @@ if( GPU_SOURCE_FILES )
             FOLDER "opensubdiv"
     )
 endif()
-
-_add_doxy_headers( "${DOXY_HEADER_FILES}" )
-
-install(
-    FILES
-        ${PUBLIC_HEADER_FILES}
-    DESTINATION
-        "${CMAKE_INCDIR_BASE}/osd"
-    PERMISSIONS
-        OWNER_READ
-        GROUP_READ
-        WORLD_READ )
-
+#
+#_add_doxy_headers( "${DOXY_HEADER_FILES}" )
+#
+#install(
+#    FILES
+#        ${PUBLIC_HEADER_FILES}
+#    DESTINATION
+#        "${CMAKE_INCDIR_BASE}/osd"
+#    PERMISSIONS
+#        OWNER_READ
+#        GROUP_READ
+#        WORLD_READ )
+#
 if (ANDROID)
     install(
         FILES

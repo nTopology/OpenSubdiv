@@ -25,9 +25,9 @@
 if (NOT NO_LIB)
 
     #---------------------------------------------------------------------------
-    include_directories(
-        "${PROJECT_SOURCE_DIR}/opensubdiv"
-    )
+    #include_directories(
+    #    "${PROJECT_SOURCE_DIR}/opensubdiv"
+    #)
 
     #---------------------------------------------------------------------------
     # platform dependent tweaks
@@ -37,9 +37,9 @@ if (NOT NO_LIB)
 
     endif()
 
-    add_definitions(
-        ${PLATFORM_COMPILE_FLAGS}
-    )
+    #add_definitions(
+    #    ${PLATFORM_COMPILE_FLAGS}
+    #)
 
     #---------------------------------------------------------------------------
     if( PTEX_FOUND )
@@ -131,13 +131,13 @@ if (NOT NO_LIB)
 
     #---------------------------------------------------------------------------
 
-    install( FILES version.h
-        DESTINATION
-            "${CMAKE_INCDIR_BASE}"
-        PERMISSIONS
-            OWNER_READ
-            GROUP_READ
-            WORLD_READ )
+    #install( FILES version.h
+    #    DESTINATION
+    #        "${CMAKE_INCDIR_BASE}"
+    #    PERMISSIONS
+    #        OWNER_READ
+    #        GROUP_READ
+    #        WORLD_READ )
 
     #---------------------------------------------------------------------------
 
@@ -155,14 +155,16 @@ if (NOT NO_LIB)
         PROPERTIES 
             OUTPUT_NAME osdCPU 
             CLEAN_DIRECT_OUTPUT 1
-            FOLDER "opensubdiv"
+            #FOLDER "opensubdiv"
     )
 
     target_link_libraries(osd_static_cpu
         ${PLATFORM_CPU_LIBRARIES}
     )
 
-    install( TARGETS osd_static_cpu DESTINATION "${CMAKE_LIBDIR_BASE}" )
+    target_include_directories(osd_static_cpu PUBLIC .)
+
+    #install( TARGETS osd_static_cpu DESTINATION "${CMAKE_LIBDIR_BASE}" )
 
     if( OSD_GPU )
         # this macro uses FindCUDA.cmake to compile .cu kernel files

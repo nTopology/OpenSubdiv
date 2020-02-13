@@ -27,7 +27,7 @@ project(OpenSubdiv)
 cmake_minimum_required(VERSION 2.8.6)
 
 # Turn on folder support
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+#set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 #-------------------------------------------------------------------------------
 # Obtain OpenSubdiv API version from version.h file
@@ -47,110 +47,111 @@ endif()
     # remove starting 'v' character
     string(REGEX REPLACE "^v" "" OSD_SONAME ${OSD_SONAME})
 
-    add_definitions(
-        -DOPENSUBDIV_VERSION_STRING="${OSD_SONAME}"
-    )
+    #add_definitions(
+    #    -DOPENSUBDIV_VERSION_STRING="${OSD_SONAME}"
+    #)
 
 #-------------------------------------------------------------------------------
 
-message(STATUS "Compiling ${CMAKE_PROJECT_NAME} version ${OpenSubdiv_VERSION}")
-message(STATUS "Using cmake version ${CMAKE_VERSION}")
+#message(STATUS "Compiling ${CMAKE_PROJECT_NAME} version ${OpenSubdiv_VERSION}")
+#message(STATUS "Using cmake version ${CMAKE_VERSION}")
 
 #-------------------------------------------------------------------------------
 # Specify the default install path
-if (NOT DEFINED CMAKE_INSTALL_PREFIX)
-    SET( CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/" )
-endif()
+#if (NOT DEFINED CMAKE_INSTALL_PREFIX)
+#    SET( CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/" )
+#endif()
 
-if (NOT DEFINED CMAKE_INCDIR_BASE)
-    set( CMAKE_INCDIR_BASE include/opensubdiv )
-endif()
+#if (NOT DEFINED CMAKE_INCDIR_BASE)
+#    set( CMAKE_INCDIR_BASE include/opensubdiv )
+#endif()
 
-if (NOT DEFINED CMAKE_BINDIR_BASE)
-    set( CMAKE_BINDIR_BASE bin )
-endif()
+#if (NOT DEFINED CMAKE_BINDIR_BASE)
+#    set( CMAKE_BINDIR_BASE bin )
+#endif()
 
-if (NOT DEFINED CMAKE_LIBDIR_BASE)
-    set( CMAKE_LIBDIR_BASE lib )
-endif()
+#if (NOT DEFINED CMAKE_LIBDIR_BASE)
+#    set( CMAKE_LIBDIR_BASE lib )
+#endif()
 
-if (NOT DEFINED CMAKE_FRAMEWORKDIR_BASE)
-    set( CMAKE_FRAMEWORKDIR_BASE Frameworks )
-endif()
+#if (NOT DEFINED CMAKE_FRAMEWORKDIR_BASE)
+#    set( CMAKE_FRAMEWORKDIR_BASE Frameworks )
+#endif()
 
-if (NOT DEFINED CMAKE_PLUGINDIR_BASE)
-    set( CMAKE_PLUGINDIR_BASE plugin )
-endif()
+#if (NOT DEFINED CMAKE_PLUGINDIR_BASE)
+#    set( CMAKE_PLUGINDIR_BASE plugin )
+#endif()
 
-if (NOT DEFINED CMAKE_DOCDIR_BASE)
-    set( CMAKE_DOCDIR_BASE share/doc/opensubdiv )
-else()
-    if (IS_ABSOLUTE ${CMAKE_DOCDIR_BASE})
-        set( CMAKE_DOCDIR_BASE "${CMAKE_DOCDIR_BASE}" )
-    else()
-        set( CMAKE_DOCDIR_BASE "${CMAKE_INSTALL_PREFIX}/${CMAKE_DOCDIR_BASE}" )
-    endif()
-endif()
+#if (NOT DEFINED CMAKE_DOCDIR_BASE)
+ #   set( CMAKE_DOCDIR_BASE share/doc/opensubdiv )
+#else()
+#    if (IS_ABSOLUTE ${CMAKE_DOCDIR_BASE})
+#        set( CMAKE_DOCDIR_BASE "${CMAKE_DOCDIR_BASE}" )
+#    else()
+#        set( CMAKE_DOCDIR_BASE "${CMAKE_INSTALL_PREFIX}/${CMAKE_DOCDIR_BASE}" )
+#    endif()
+#endif()
 
 # Allow install path to be overridden for cross-compile builds
-if(LIBRARY_OUTPUT_PATH_ROOT)
-    SET( CMAKE_INSTALL_PREFIX "${LIBRARY_OUTPUT_PATH_ROOT}/" )
-endif()
+#if(LIBRARY_OUTPUT_PATH_ROOT)
+#    SET( CMAKE_INSTALL_PREFIX "${LIBRARY_OUTPUT_PATH_ROOT}/" )
+#endif()
 
 # Set the directory where the executables will be stored.
-set(EXECUTABLE_OUTPUT_PATH
-    "${PROJECT_BINARY_DIR}/bin"
-    CACHE PATH
-    "Directory where executables will be stored"
-)
-
+#set(EXECUTABLE_OUTPUT_PATH
+#    "${PROJECT_BINARY_DIR}/bin"
+#    CACHE PATH
+#    "Directory where executables will be stored"
+#)
+#
 # Set the directory where the libraries will be stored.
-set(LIBRARY_OUTPUT_PATH
-    "${PROJECT_BINARY_DIR}/lib"
-    CACHE PATH
-    "Directory where all libraries will be stored"
-)
+#set(LIBRARY_OUTPUT_PATH
+#    "${PROJECT_BINARY_DIR}/lib"
+#    CACHE PATH
+#    "Directory where all libraries will be stored"
+#)
 
 # Specify the list of directories to search for cmake modules.
-set(CMAKE_MODULE_PATH
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
-)
+#set(CMAKE_MODULE_PATH
+#    "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
+#)
 
 #-------------------------------------------------------------------------------
 # OpenSubdiv trips bugs in some older gcc versions
-if (CMAKE_COMPILER_IS_GNUCC)
-    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.8)
-        message(WARNING "g++ 4.8 or newer recommended")
-    endif()
-endif()
+#if (CMAKE_COMPILER_IS_GNUCC)
+#    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.8)
+#        message(WARNING "g++ 4.8 or newer recommended")
+#    endif()
+#endif()
 
 # Detect Clang (until a cmake version provides built-in variables)
-if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-    set(CMAKE_COMPILER_IS_CLANGCC 1)
-elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Intel")
-    set(CMAKE_COMPILER_IS_ICC 1)
-endif()
-
-
-if (NOT CMAKE_COMPILER_IS_ICC)
-    # Currently icc has a bug that asserts when linking rpaths containing long
-    # sequences of ':' that this command causes. The consequence is that examples
-    # built and installed using icc will not have an rpath pointing to the built
-    # OSD library which they depend on and will have to set LD_LIBRARY_PATH instead.
-    list(APPEND CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
-endif()
+#if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+#    set(CMAKE_COMPILER_IS_CLANGCC 1)
+#elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Intel")
+#    set(CMAKE_COMPILER_IS_ICC 1)
+#endif()
+#
+#
+#if (NOT CMAKE_COMPILER_IS_ICC)
+#    # Currently icc has a bug that asserts when linking rpaths containing long
+#    # sequences of ':' that this command causes. The consequence is that examples
+#    # built and installed using icc will not have an rpath pointing to the built
+#    # OSD library which they depend on and will have to set LD_LIBRARY_PATH instead.
+#    list(APPEND CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+#endif()
 
 # add the automatically determined parts of the RPATH
 # which point to directories outside the build tree to the install RPATH
-SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+#SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # ensure that ARC is shown as enabled in the Xcode UI
-if(CMAKE_GENERATOR STREQUAL "Xcode")
-    set (CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC "YES")
-endif()
+#if(CMAKE_GENERATOR STREQUAL "Xcode")
+#    set (CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC "YES")
+#endif()
 
 
-set(OSD_COMPILER_FLAGS)
+set(OSD_COMPILER_DEFINITIONS)
+set(OSD_COMPILER_OPTIONS)
 
 # Disable spurious warnings in gcc builds and clang
 if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_CLANGCC OR CMAKE_COMPILER_IS_ICC )
@@ -214,30 +215,28 @@ if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_CLANGCC OR CMAKE_COMPILER_IS_IC
 elseif(MSVC)
 
     # Turn on all warnings
-    list(APPEND OSD_COMPILER_FLAGS /Wall)
+    list(APPEND OSD_COMPILER_OPTIONS /Wall
+        /W3     # Use warning level recommended for production purposes.
+        /WX     # Treat all compiler warnings as errors.
+        # warning C4005: macro redefinition
+        /wd4005
+        # these warnings are being triggered from inside VC's header files
+        # warning C4350: behavior change: 'member1' called instead of 'member2'
+        /wd4350
+        # warning C4548: expression before comma has no effect; expected expression with side-effect
+        /wd4548
+    )
 
-    list(APPEND OSD_COMPILER_FLAGS
-                    /W3     # Use warning level recommended for production purposes.
-                    /WX     # Treat all compiler warnings as errors.
-
-                    # warning C4005: macro redefinition
-                    /wd4005
-
-                    # these warnings are being triggered from inside VC's header files
-                    # warning C4350: behavior change: 'member1' called instead of 'member2'
-                    /wd4350
-                    # warning C4548: expression before comma has no effect; expected expression with side-effect
-                    /wd4548
-
+    list(APPEND OSD_COMPILER_DEFINITIONS
                     # Make sure WinDef.h does not define min and max macros which
                     # will conflict with std::min() and std::max().
-                    /DNOMINMAX
+                    NOMINMAX
 
                     # Make sure the constants in <math.h> get defined.
-                    /D_USE_MATH_DEFINES
+                    _USE_MATH_DEFINES
 
                     # Do not enforce MSVC's safe CRT replacements.
-                    /D_CRT_SECURE_NO_WARNINGS
+                    _CRT_SECURE_NO_WARNINGS
 
                     # Disable checked iterators and iterator debugging.  Visual Studio
                     # 2008 does not implement std::vector::data(), so we need to take the
@@ -253,61 +252,61 @@ elseif(MSVC)
                     #/D_HAS_ITERATOR_DEBUGGING=0
     )
 
-    option(MSVC_STATIC_CRT "Statically link MSVC CRT" OFF)
+    #option(MSVC_STATIC_CRT "Statically link MSVC CRT" OFF)
 
-    if(MSVC_STATIC_CRT)
-        message(STATUS "Using static MSVC CRT")
-        # http://stackoverflow.com/a/32128977/486990
-        add_compile_options(
-            "$<$<CONFIG:Debug>:/MTd>"
-            "$<$<CONFIG:RelWithDebInfo>:/MT>"
-            "$<$<CONFIG:Release>:/MT>"
-            "$<$<CONFIG:MinSizeRel>:/MT>"
-        )
-    else()
-        # Turn off a duplicate LIBCMT linker warning
-        set(CMAKE_EXE_LINKER_FLAGS
-            "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:libcmt.lib")
-        set(CMAKE_SHARED_LINKER_FLAGS
-            "${CMAKE_SHARED_LINKER_FLAGS} /NODEFAULTLIB:libcmt.lib")
-    endif()
+    #if(MSVC_STATIC_CRT)
+    #    message(STATUS "Using static MSVC CRT")
+    #    # http://stackoverflow.com/a/32128977/486990
+    #    add_compile_options(
+    #        "$<$<CONFIG:Debug>:/MTd>"
+    #        "$<$<CONFIG:RelWithDebInfo>:/MT>"
+    #        "$<$<CONFIG:Release>:/MT>"
+    #        "$<$<CONFIG:MinSizeRel>:/MT>"
+    #    )
+    #else()
+    #    # Turn off a duplicate LIBCMT linker warning
+    #    set(CMAKE_EXE_LINKER_FLAGS
+    #        "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:libcmt.lib")
+    #    set(CMAKE_SHARED_LINKER_FLAGS
+    #        "${CMAKE_SHARED_LINKER_FLAGS} /NODEFAULTLIB:libcmt.lib")
+    #endif()
 
 endif()
 
-if(${SIMD} MATCHES "AVX")
-    list(APPEND OSD_COMPILER_FLAGS -xAVX)
-endif()
-
-add_definitions(${OSD_COMPILER_FLAGS})
+#if(${SIMD} MATCHES "AVX")
+#    list(APPEND OSD_COMPILER_FLAGS -xAVX)
+#endif()
+#
+#add_definitions(${OSD_COMPILER_FLAGS})
 
 #-------------------------------------------------------------------------------
 
 # Ignore rules that will re-run cmake (this will avoid constant
 # reloading of the generated Visual Studio project).
-set(CMAKE_SUPPRESS_REGENERATION TRUE)
+#set(CMAKE_SUPPRESS_REGENERATION TRUE)
 
 option(PTEX_LOCATION "Path to Ptex" "")
 option(GLEW_LOCATION "Path to GLEW" "")
 option(GLFW_LOCATION "Path to GLFW" "")
 
 option(NO_LIB "Disable the opensubdiv libs build (caveat emptor)" OFF)
-option(NO_EXAMPLES "Disable examples build" OFF)
-option(NO_TUTORIALS "Disable tutorials build" OFF)
-option(NO_REGRESSION "Disable regression tests build" OFF)
-option(NO_PTEX "Disable PTex support" OFF)
-option(NO_DOC "Disable documentation build" OFF)
+option(NO_EXAMPLES "Disable examples build" ON)
+option(NO_TUTORIALS "Disable tutorials build" ON)
+option(NO_REGRESSION "Disable regression tests build" ON)
+option(NO_PTEX "Disable PTex support" ON)
+option(NO_DOC "Disable documentation build" ON)
 option(NO_OMP "Disable OpenMP backend" OFF)
-option(NO_TBB "Disable TBB backend" OFF)
-option(NO_CUDA "Disable CUDA backend" OFF)
-option(NO_OPENCL "Disable OpenCL backend" OFF)
-option(NO_CLEW "Disable CLEW wrapper library" OFF)
-option(NO_OPENGL "Disable OpenGL support")
-option(NO_METAL "Disable Metal support" OFF)
-option(NO_DX "Disable DirectX support")
-option(NO_TESTS "Disable all tests")
-option(NO_GLTESTS "Disable GL tests")
-option(NO_GLFW "Disable components depending on GLFW" OFF)
-option(NO_GLFW_X11 "Disable GLFW components depending on X11" OFF)
+option(NO_TBB "Disable TBB backend" ON)
+option(NO_CUDA "Disable CUDA backend" ON)
+option(NO_OPENCL "Disable OpenCL backend" ON)
+option(NO_CLEW "Disable CLEW wrapper library" ON)
+option(NO_OPENGL "Disable OpenGL support" ON)
+option(NO_METAL "Disable Metal support" ON)
+option(NO_DX "Disable DirectX support" ON)
+option(NO_TESTS "Disable all tests" ON)
+option(NO_GLTESTS "Disable GL tests" ON)
+option(NO_GLFW "Disable components depending on GLFW" ON)
+option(NO_GLFW_X11 "Disable GLFW components depending on X11" ON)
 
 option(OPENSUBDIV_GREGORY_EVAL_TRUE_DERIVATIVES "Enable true derivative evaluation for Gregory basis patches" OFF)
 
@@ -323,7 +322,7 @@ endif()
 if (NOT NO_OPENGL)
     find_package(OpenGL)
 endif()
-find_package(OpenGLES)
+#find_package(OpenGLES)
 if(NOT NO_OPENCL)
     if(NOT NO_CLEW)
         find_package(CLEW)
@@ -374,11 +373,11 @@ endif()
 # code to determine if a specific dependency is present or not.
 
 if(OPENMP_FOUND)
-    add_definitions(
-        -DOPENSUBDIV_HAS_OPENMP
-        ${OpenMP_CXX_FLAGS}
-    )
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_CXX_FLAGS}")
+    #add_definitions(
+    #    -DOPENSUBDIV_HAS_OPENMP
+    #    ${OpenMP_CXX_FLAGS}
+    #)
+    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_CXX_FLAGS}")
 else()
     if (NOT NO_OMP)
         message(WARNING
@@ -608,7 +607,7 @@ endif()
 
 # Macro for processing public headers into the build area for doxygen processing
 
-add_custom_target( public_headers )
+#add_custom_target( public_headers )
 
 macro(_add_doxy_headers headers)
     if (NOT NO_DOC AND DOXYGEN_FOUND)
@@ -784,9 +783,9 @@ endif()
 
 add_subdirectory(opensubdiv)
 
-if (NOT ANDROID) # XXXdyu
-    add_subdirectory(regression)
-endif()
+#if (NOT ANDROID) # XXXdyu
+#    add_subdirectory(regression)
+#endif()
 
 if (NOT NO_EXAMPLES)
     add_subdirectory(examples)

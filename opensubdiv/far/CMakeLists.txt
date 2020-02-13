@@ -72,7 +72,7 @@ set(PUBLIC_HEADER_FILES
     types.h
 )
 
-set(DOXY_HEADER_FILES ${PUBLIC_HEADER_FILES})
+#set(DOXY_HEADER_FILES ${PUBLIC_HEADER_FILES})
 
 #-------------------------------------------------------------------------------
 if (NOT NO_LIB)
@@ -85,24 +85,38 @@ if (NOT NO_LIB)
             ${PUBLIC_HEADER_FILES}
     )
 
-    set_target_properties(far_obj
-        PROPERTIES
-            FOLDER "opensubdiv"
+    target_compile_definitions(
+        far_obj
+        PRIVATE
+        ${OSD_COMPILER_DEFINITIONS}
+        ${PLATFORM_COMPILE_FLAGS}
     )
+
+    
+    target_compile_options(
+        far_obj
+        PRIVATE
+        ${OSD_COMPILER_OPTIONS}
+    )
+    
+    #set_target_properties(far_obj
+    #    PROPERTIES
+    #        FOLDER "opensubdiv"
+    #)
 
 endif()
 
 #-------------------------------------------------------------------------------
-_add_doxy_headers( "${DOXY_HEADER_FILES}" )
-
-install(
-    FILES
-        ${PUBLIC_HEADER_FILES}
-    DESTINATION
-        "${CMAKE_INCDIR_BASE}/far"
-    PERMISSIONS
-        OWNER_READ
-        GROUP_READ
-        WORLD_READ )
-
+#_add_doxy_headers( "${DOXY_HEADER_FILES}" )
+#
+#install(
+#    FILES
+#        ${PUBLIC_HEADER_FILES}
+#    DESTINATION
+#        "${CMAKE_INCDIR_BASE}/far"
+#    PERMISSIONS
+#        OWNER_READ
+#        GROUP_READ
+#        WORLD_READ )
+#
 #-------------------------------------------------------------------------------

@@ -44,7 +44,7 @@ set(SOURCE_FILES
 
 set(DOXY_HEADER_FILES ${PUBLIC_HEADER_FILES})
 
-include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+#include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
 if (NOT NO_LIB)
     add_library(sdc_obj
@@ -54,23 +54,36 @@ if (NOT NO_LIB)
             ${PUBLIC_HEADER_FILES}
     )
 
-    set_target_properties(sdc_obj
-        PROPERTIES
-            FOLDER "opensubdiv"
+    target_compile_definitions(
+        sdc_obj
+        PRIVATE
+        ${OSD_COMPILER_DEFINITIONS}
+        ${PLATFORM_COMPILE_FLAGS}
     )
+
+    target_compile_options(
+        sdc_obj
+        PRIVATE
+        ${OSD_COMPILER_OPTIONS}
+    )
+
+    #set_target_properties(sdc_obj
+    #    PROPERTIES
+    #        FOLDER "opensubdiv"
+    #)
 
 endif()
 
 #-------------------------------------------------------------------------------
-_add_doxy_headers( "${DOXY_HEADER_FILES}" )
-
-install(
-    FILES
-        ${PUBLIC_HEADER_FILES}
-    DESTINATION
-        "${CMAKE_INCDIR_BASE}/sdc"
-    PERMISSIONS
-        OWNER_READ
-        GROUP_READ
-        WORLD_READ )
+#_add_doxy_headers( "${DOXY_HEADER_FILES}" )
+#
+#install(
+#    FILES
+#        ${PUBLIC_HEADER_FILES}
+#    DESTINATION
+#        "${CMAKE_INCDIR_BASE}/sdc"
+#    PERMISSIONS
+#        OWNER_READ
+#        GROUP_READ
+#        WORLD_READ )
 
