@@ -65,6 +65,7 @@ if (NOT NO_LIB)
         sdc_obj
         PRIVATE
         ${OSD_COMPILER_OPTIONS}
+        ${OSD_PLATFORM_OPTIONS}
     )
 
     #set_target_properties(sdc_obj

@@ -97,6 +97,7 @@ if (NOT NO_LIB)
         far_obj
         PRIVATE
         ${OSD_COMPILER_OPTIONS}
+        ${PLATFORM_COMPILE_OPTIONS}
     )
     
     #set_target_properties(far_obj

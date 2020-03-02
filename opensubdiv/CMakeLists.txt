@@ -32,7 +32,7 @@ if (NOT NO_LIB)
     #---------------------------------------------------------------------------
     # platform dependent tweaks
     if(APPLE OR UNIX)
-        set(PLATFORM_COMPILE_FLAGS -fPIC)
+        set(PLATFORM_COMPILE_OPTIONS -fPIC)
     elseif(WIN32)
 
     endif()
@@ -50,9 +50,9 @@ if (NOT NO_LIB)
     endif()
 
     if( OPENMP_FOUND )
-        if (CMAKE_COMPILER_IS_GNUCXX)
-            list(APPEND PLATFORM_CPU_LIBRARIES gomp)
-        endif()
+       #if (CMAKE_COMPILER_IS_GNUCXX)
+       #     list(APPEND PLATFORM_CPU_LIBRARIES gomp)
+       #endif()
     endif()
 
     if( TBB_FOUND )
@@ -186,8 +186,8 @@ if (NOT NO_LIB)
 
 
     # Build dynamic libs  ----------------------------------
-    if (NOT WIN32 AND NOT IOS)
-
+    #if (NOT WIN32 AND NOT IOS)
+    if (FALSE)
         # generate dynamic-link targets
 
         #---------------------------------------------------

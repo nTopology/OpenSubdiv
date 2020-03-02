@@ -74,9 +74,9 @@ if(OPENMP_FOUND )
 
     list(APPEND PUBLIC_HEADER_FILES ${OPENMP_PUBLIC_HEADERS})
 
-    if (CMAKE_COMPILER_IS_GNUCXX)
-        list(APPEND PLATFORM_CPU_LIBRARIES gomp)
-    endif()
+    #if (CMAKE_COMPILER_IS_GNUCXX)
+    #    list(APPEND PLATFORM_CPU_LIBRARIES gomp)
+    #endif()
 endif()
 
 list(APPEND DOXY_HEADER_FILES ${OPENMP_PUBLIC_HEADERS})
@@ -382,21 +382,23 @@ add_library(osd_cpu_obj
 target_compile_definitions(
     osd_cpu_obj PRIVATE
     ${OSD_COMPILER_DEFINITIONS}
-    ${PLATFORM_COMPILE_FLAGS}
+    ${PLATFORM_COMPILE_DEFINITIONS}
 )
 
 if(OPENMP_FOUND)
-    target_compile_definitions(
-        osd_cpu_obj PRIVATE
-        OPENSUBDIV_HAS_OPENMP
-        ${OpenMP_CXX_FLAGS}
-    )
+    #target_compile_definitions(
+    #    osd_cpu_obj PRIVATE
+    #    OPENSUBDIV_HAS_OPENMP
+    #    ${OpenMP_CXX_FLAGS}
+    #)
+    target_link_libraries(osd_cpu_obj PRIVATE OpenMP::OpenMP_CXX)
 endif()
 
 target_compile_options(
     osd_cpu_obj
     PRIVATE
     ${OSD_COMPILER_OPTIONS}
+    ${OSD_PLATFORM_OPTIONS}
 )
 
 #set_target_properties(osd_cpu_obj

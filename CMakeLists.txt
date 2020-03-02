@@ -158,26 +158,26 @@ if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_CLANGCC OR CMAKE_COMPILER_IS_IC
 
     # Turn on all warnings
     if(CMAKE_COMPILER_IS_ICC)
-        list(APPEND OSD_COMPILER_FLAGS -w2 -wd1572 -wd1418 -wd981 -wd383 -wd193 -wd444)
+        list(APPEND OSD_COMPILER_OPTIONS -w2 -wd1572 -wd1418 -wd981 -wd383 -wd193 -wd444)
     else()
-        list(APPEND OSD_COMPILER_FLAGS -Wall -Wextra)
+        list(APPEND OSD_COMPILER_OPTIONS -Wall -Wextra)
     endif()
 
     # HBR uses the offsetof macro on a templated struct, which appears
     # to spuriously set off this warning in both gcc and Clang
-    list(APPEND OSD_COMPILER_FLAGS -Wno-invalid-offsetof)
+    list(APPEND OSD_COMPILER_OPTIONS -Wno-invalid-offsetof)
 
     # HBR uses unions as an optimization for its memory allocation.
     # Type casting between union members breaks strict aliasing rules from
     # gcc 4.4.1 versions onwards. We disable the warning but keep aliasing
     # optimization.
-    list(APPEND OSD_COMPILER_FLAGS -Wno-strict-aliasing)
+    list(APPEND OSD_COMPILER_OPTIONS -Wno-strict-aliasing)
 
     # FAR and OSD have templated virtual function implementations that trigger
     # a lot of hidden virtual function overloads (some of them spurious).
     # Disable those for now in Clang.
     if(CMAKE_COMPILER_IS_CLANGCC)
-        list(APPEND OSD_COMPILER_FLAGS -Wno-overloaded-virtual)
+        list(APPEND OSD_COMPILER_OPTIONS -Wno-overloaded-virtual)
     endif()
 
     # Intel's icc compiler requires some libraries linked
