@@ -159,8 +159,8 @@ if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_CLANGCC OR CMAKE_COMPILER_IS_IC
     # Turn on all warnings
     if(CMAKE_COMPILER_IS_ICC)
         list(APPEND OSD_COMPILER_OPTIONS -w2 -wd1572 -wd1418 -wd981 -wd383 -wd193 -wd444)
-    else()
-        list(APPEND OSD_COMPILER_OPTIONS -Wall -Wextra)
+    #else()
+    #    list(APPEND OSD_COMPILER_OPTIONS -Wall -Wextra)
     endif()
 
     # HBR uses the offsetof macro on a templated struct, which appears
