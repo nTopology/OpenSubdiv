@@ -217,7 +217,7 @@ elseif(MSVC)
     # Turn on all warnings
     list(APPEND OSD_COMPILER_OPTIONS /Wall
         /W3     # Use warning level recommended for production purposes.
-        /WX     # Treat all compiler warnings as errors.
+        #/WX     # Treat all compiler warnings as errors.
         # warning C4005: macro redefinition
         /wd4005
         # these warnings are being triggered from inside VC's header files
