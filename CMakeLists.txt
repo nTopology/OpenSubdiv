@@ -24,7 +24,7 @@
 
 project(OpenSubdiv)
 
-cmake_minimum_required(VERSION 2.8.6)
+cmake_minimum_required(VERSION 2.8.6...4.2)
 
 # Turn on folder support
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -510,7 +510,7 @@ else()
     endif()
 endif()
 
-if(CUDA_FOUND)
+if(CUDA_FOUND AND NOT NO_CUDA)
     add_definitions(
         -DOPENSUBDIV_HAS_CUDA
         -DCUDA_ENABLE_DEPRECATED=0
@@ -785,7 +785,9 @@ endif()
 add_subdirectory(opensubdiv)
 
 if (NOT ANDROID) # XXXdyu
-    add_subdirectory(regression)
+    if (NOT NO_REGRESSION)
+        add_subdirectory(regression)
+    endif()
 endif()
 
 if (NOT NO_EXAMPLES)
